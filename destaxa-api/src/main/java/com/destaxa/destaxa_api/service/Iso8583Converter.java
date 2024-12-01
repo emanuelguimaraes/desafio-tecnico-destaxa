@@ -1,6 +1,7 @@
 package com.destaxa.destaxa_api.service;
 
 import com.destaxa.destaxa_api.dto.AuthorizationRequest;
+import com.destaxa.destaxa_api.dto.AuthorizationResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import org.jpos.iso.ISOException;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 
 @Slf4j
 @Service
@@ -27,6 +30,9 @@ public class Iso8583Converter {
         try {
             ISOMsg isoMsg = new ISOMsg();
             isoMsg.setPackager(packager);
+
+            isoMsg.setHeader("ISO1987".getBytes());
+
             isoMsg.setMTI("0200");
 
             isoMsg.set(2, request.getCardNumber());
@@ -54,9 +60,40 @@ public class Iso8583Converter {
         }
     }
 
+    public AuthorizationResponse fromIso8583(String isoMessage) {
+        try {
+            ISOMsg isoMsg = new ISOMsg();
+
+            isoMsg.setPackager(packager);
+            isoMsg.unpack(isoMessage.getBytes());
+
+            isoMsg.setHeader("ISO1987".getBytes());
+
+            AuthorizationResponse response = new AuthorizationResponse();
+            response.setPaymentId(isoMsg.getString(127));
+            response.setValue(parseAmount(isoMsg.getString(4)));
+            response.setResponseCode(isoMsg.getString(39));
+            response.setAuthorizationCode(isoMsg.getString(38));
+
+            LocalDateTime transactionDateTime = LocalDateTime.now();
+            response.setTransactionDateTime(transactionDateTime);
+
+            response.setExternalId(isoMsg.getString(48));
+
+            return response;
+        } catch (ISOException e) {
+            log.error("Erro ao converter de ISO8583", e);
+            throw new RuntimeException("Erro ao converter de ISO8583", e);
+        }
+    }
+
     private String formatAmount(BigDecimal amount) {
         DecimalFormat df = new DecimalFormat("000000000000");
         return df.format(amount.multiply(new BigDecimal("100")).longValue());
+    }
+
+    private BigDecimal parseAmount(String amount) {
+        return new BigDecimal(amount).divide(new BigDecimal("100"), 2, RoundingMode.HALF_UP);
     }
 
     private String generateStan() {

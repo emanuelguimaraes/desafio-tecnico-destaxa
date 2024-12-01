@@ -47,4 +47,9 @@ public class RabbitMQConfig {
     public Queue autorizacaoQueue() {
         return new Queue("autorizacao", false);
     }
+
+    @Bean
+    public Queue autorizacaoRespostaQueue() {
+        return new Queue("autorizacao_resposta", false);
+    }
 }

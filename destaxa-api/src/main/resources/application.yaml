@@ -16,6 +16,10 @@ spring:
         max-attempts: 3
         initial-interval: 1000
 
+jpos:
+  packager:
+    path: src/main/resources/packager.xml
+
 logging:
   level:
     org.springframework.amqp: DEBUG

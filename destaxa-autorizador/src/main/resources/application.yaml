@@ -23,6 +23,11 @@ spring:
         initial-interval: 1000
         multiplier: 2.0
         max-interval: 10000
+
+jpos:
+  packager:
+    path: /packager.xml
+
 management:
   endpoints:
     web:

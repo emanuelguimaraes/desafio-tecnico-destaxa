@@ -1,13 +1,14 @@
-package com.destaxa.autorizador.model;
+package com.destaxa.authorization.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
@@ -18,9 +19,9 @@ public class AuthorizationResponse implements Serializable {
     private BigDecimal value;
     private String responseCode;
     private String authorizationCode;
-
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime transactionDateTime;
-
+    private String nsu;
+    private LocalDateTime transmissionDateTime;
+    private LocalTime localTransactionTime;
+    private LocalDate localTransactionDate;
     private String externalId;
 }

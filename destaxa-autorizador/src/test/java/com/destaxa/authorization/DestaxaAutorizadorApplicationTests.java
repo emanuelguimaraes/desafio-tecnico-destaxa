@@ -1,4 +1,4 @@
-package com.destaxa.autorizador;
+package com.destaxa.authorization;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

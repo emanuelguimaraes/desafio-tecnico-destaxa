@@ -16,7 +16,7 @@
     <isofield id="10" length="8" name="CARDHOLDER BILLING CONVERSION RATE" class="org.jpos.iso.IFA_NUMERIC"/>
     <isofield id="11" length="6" name="SYSTEM TRACE AUDIT NUMBER" class="org.jpos.iso.IFA_NUMERIC"/>
     <isofield id="12" length="6" name="LOCAL TRANSACTION TIME" class="org.jpos.iso.IFA_NUMERIC"/>
-    <isofield id="13" length="4" name="LOCAL TRANSACTION DATE" class="org.jpos.iso.IFA_NUMERIC"/>
+    <isofield id="13" length="6" name="LOCAL TRANSACTION DATE" class="org.jpos.iso.IFA_NUMERIC"/>
     <isofield id="14" length="4" name="EXPIRATION DATE" class="org.jpos.iso.IFA_NUMERIC"/>
     <isofield id="15" length="4" name="SETTLEMENT DATE" class="org.jpos.iso.IFA_NUMERIC"/>
     <isofield id="16" length="4" name="CONVERSION DATE" class="org.jpos.iso.IFA_NUMERIC"/>

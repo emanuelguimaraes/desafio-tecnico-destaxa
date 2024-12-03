@@ -1,6 +1,6 @@
-package com.destaxa.autorizador.listener;
+package com.destaxa.authorization.listener;
 
-import com.destaxa.autorizador.service.AuthorizationService;
+import com.destaxa.authorization.service.AuthorizationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

@@ -1,4 +1,4 @@
-package com.destaxa.destaxa_autorizador;
+package com.destaxa.autorizador;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -2,24 +2,29 @@ spring:
   application:
     name: destaxa-autorizador
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
     listener:
-      simple:
-        concurrency: 10
-        max-concurrency: 20
+      authorization-queue:
+        queue-name: ${AUTORIZACAO_QUEUE_NAME:autorizacao}
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 1000
+          multiplier: 2.0
+          max-interval: 10000
     template:
+      default-receive-queue: ${AUTORIZACAO_RESPOSTA_QUEUE_NAME:autorizacao_resposta}
       retry:
         enabled: true
         max-attempts: 3
         initial-interval: 1000
-
-jpos:
-  packager:
-    path: src/main/resources/packager.xml
-
-logging:
-  level:
-    org.springframework.amqp: DEBUG
+        multiplier: 2.0
+        max-interval: 10000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

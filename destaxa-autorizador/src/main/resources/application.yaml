@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: destaxa-autorizador
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        concurrency: 10
+        max-concurrency: 20
+    template:
+      retry:
+        enabled: true
+        max-attempts: 3
+        initial-interval: 1000
+
+jpos:
+  packager:
+    path: src/main/resources/packager.xml
+
+logging:
+  level:
+    org.springframework.amqp: DEBUG

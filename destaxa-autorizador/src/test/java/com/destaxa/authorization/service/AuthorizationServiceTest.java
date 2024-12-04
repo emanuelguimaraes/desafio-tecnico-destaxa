@@ -1,6 +1,5 @@
 package com.destaxa.authorization.service;
 
-import com.destaxa.authorization.exception.ISOFormatException;
 import com.destaxa.authorization.iso.ISO8583Processor;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;

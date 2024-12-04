@@ -15,6 +15,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static com.destaxa.authorization.iso.ISO8583Processor.*;
+
 @Service
 @Slf4j
 public class AuthorizationService {
@@ -55,9 +57,9 @@ public class AuthorizationService {
             LocalDateTime now = LocalDateTime.now();
             AuthorizationResponse errorResponse = new AuthorizationResponse();
             errorResponse.setResponseCode("999");
-            errorResponse.setTransmissionDateTime(now);
-            errorResponse.setLocalTransactionTime(now.toLocalTime());
-            errorResponse.setLocalTransactionDate(now.toLocalDate());
+            errorResponse.setTransmissionDateTime(now.format(DATE_TIME_FORMATTER));
+            errorResponse.setLocalTransactionTime(now.format(TIME_FORMATTER));
+            errorResponse.setLocalTransactionDate(now.format(DATE_FORMATTER));
 
             errorResponse.setPaymentId(UUID.randomUUID().toString());
             errorResponse.setValue(BigDecimal.ZERO);

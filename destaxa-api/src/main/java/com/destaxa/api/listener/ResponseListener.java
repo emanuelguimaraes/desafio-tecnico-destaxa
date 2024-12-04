@@ -1,34 +1,30 @@
-package com.destaxa.destaxa_api.listener;
+package com.destaxa.api.listener;
 
-import com.destaxa.destaxa_api.dto.AuthorizationResponse;
-import com.destaxa.destaxa_api.service.Iso8583Converter;
+import com.destaxa.api.dto.AuthorizationResponse;
+import com.destaxa.api.util.ISO8583Processor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class ResponseListener {
 
-    private final Iso8583Converter iso8583Converter;
-    private final Map<String, Runnable> callbacks = new HashMap<>();
-    private final Map<String, AuthorizationResponse> responses = new HashMap<>();
+    private final ISO8583Processor iso8583Processor;
+    private final Map<String, Runnable> callbacks = new ConcurrentHashMap<>();
+    private final Map<String, AuthorizationResponse> responses = new ConcurrentHashMap<>();
 
-    @Autowired
-    public ResponseListener(Iso8583Converter iso8583Converter) {
-        this.iso8583Converter = iso8583Converter;
-    }
-
-    @RabbitListener(queues = "autorizacao_resposta")
+    @RabbitListener(queues = "${spring.rabbitmq.template.default-receive-queue}")
     public void onMessage(String isoMessage) {
         log.info("Mensagem recebida da fila autorizacao_resposta: {}", isoMessage);
 
         try {
-            AuthorizationResponse response = iso8583Converter.fromIso8583(isoMessage);
+            AuthorizationResponse response = iso8583Processor.fromIso8583(isoMessage);
             responses.put(response.getExternalId(), response);
 
             if (response.getExternalId() != null) {
@@ -40,6 +36,7 @@ public class ResponseListener {
             }
 
             log.info("Resposta de autorização recebida: {}", response);
+
         } catch (Exception e) {
             log.error("Erro ao processar mensagem de resposta", e);
         }

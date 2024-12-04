@@ -1,5 +1,6 @@
-package com.destaxa.destaxa_api.config;
+package com.destaxa.api.config;
 
+import com.destaxa.api.util.formatter.AmountFormatter;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.packager.GenericPackager;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,11 @@ public class JposConfig {
 
     @Bean
     public GenericPackager genericPackager() throws ISOException {
-        return new GenericPackager(packagerPath);
+        return new GenericPackager(getClass().getResourceAsStream(packagerPath));
+    }
+
+    @Bean
+    public AmountFormatter amountFormatter() {
+        return new AmountFormatter();
     }
 }

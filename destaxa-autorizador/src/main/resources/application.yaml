@@ -11,18 +11,20 @@ spring:
         queue-name: ${AUTORIZACAO_QUEUE_NAME:autorizacao}
         retry:
           enabled: true
-          max-attempts: 3
+          max-attempts: 10
           initial-interval: 1000
           multiplier: 2.0
           max-interval: 10000
+        auto-startup: false
     template:
       default-receive-queue: ${AUTORIZACAO_RESPOSTA_QUEUE_NAME:autorizacao_resposta}
       retry:
         enabled: true
-        max-attempts: 3
+        max-attempts: 10
         initial-interval: 1000
         multiplier: 2.0
         max-interval: 10000
+      auto-startup: false
 
 jpos:
   packager:

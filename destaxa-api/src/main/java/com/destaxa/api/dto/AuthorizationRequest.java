@@ -1,9 +1,10 @@
-package com.destaxa.destaxa_api.dto;
+package com.destaxa.api.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Data
 public class AuthorizationRequest {
@@ -12,7 +13,6 @@ public class AuthorizationRequest {
     private String externalId;
 
     @NotNull(message = "Value cannot be null")
-    @DecimalMin(value = "0.01", message = "Value must be greater than or equal to 0.01")
     @Digits(integer = 10, fraction = 2, message = "Value must have at most 10 integer and 2 fraction digits")
     private BigDecimal value;
 
@@ -27,17 +27,14 @@ public class AuthorizationRequest {
     @NotNull(message = "Expiration month cannot be null")
     @Min(value = 1, message = "Invalid expiration month")
     @Max(value = 12, message = "Invalid expiration month")
-    private Integer expMonth;
+    private BigInteger expMonth;
 
     @NotNull(message = "Expiration year cannot be null")
-    @Min(value = 23, message = "Invalid expiration year")
-    private Integer expYear;
+    @Min(value = 24, message = "Invalid expiration year")
+    @Max(value = 99, message = "Invalid expiration month")
+    private BigInteger expYear;
 
     @NotBlank(message = "Holder name cannot be blank")
     @Size(max = 255, message = "Holder name must be at most 255 characters")
     private String holderName;
-
-    @PositiveOrZero(message = "Installments must be greater than zero")
-    private Integer installments;
-
 }

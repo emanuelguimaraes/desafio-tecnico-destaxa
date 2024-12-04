@@ -1,4 +1,4 @@
-package com.destaxa.destaxa_api.config;
+package com.destaxa.authorization.config;
 
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Queue;
@@ -25,6 +25,12 @@ public class RabbitMQConfig {
     @Value("${spring.rabbitmq.password}")
     private String password;
 
+    @Value("${spring.rabbitmq.listener.authorization-queue.queue-name}")
+    private String autorizacaoQueue;
+
+    @Value("${spring.rabbitmq.template.default-receive-queue}")
+    private String autorizacaoRespostaQueue;
+
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory(host, port);
@@ -45,11 +51,11 @@ public class RabbitMQConfig {
 
     @Bean
     public Queue autorizacaoQueue() {
-        return new Queue("autorizacao", false);
+        return new Queue(autorizacaoQueue, true);
     }
 
     @Bean
     public Queue autorizacaoRespostaQueue() {
-        return new Queue("autorizacao_resposta", false);
+        return new Queue(autorizacaoRespostaQueue, true);
     }
 }

@@ -1,0 +1,99 @@
+# Arquivos compilados
+*.class
+*.jar
+*.war
+*.ear
+
+# Diretórios de build
+target/
+build/
+out/
+.mvn/wrapper/
+
+# Arquivos IDE
+.idea/
+.classpath
+.project
+*.iml
+.settings/
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.log
+*.bak
+*.swp
+
+# Arquivos de configuração específicos do ambiente
+local.properties
+.env
+
+# Arquivos gerados pelo Maven
+*.mvn
+mvnw
+mvnw.cmd
+
+# Arquivos gerados pelo IntelliJ IDEA
+*.iws
+*.ipr
+
+# Arquivos gerados pelo Eclipse
+.metadata/
+
+# Arquivos gerados pelo NetBeans
+nbproject/
+
+# Arquivos relacionados ao Docker
+.dockerignore
+Dockerfile.*
+docker-compose.*
+
+# Dependências
+/node_modules
+/vendor
+
+# Arquivos de documentação gerados
+/site
+/apidocs
+
+# Logs
+logs/
+*.log.*
+
+# Arquivos de teste
+/coverage
+
+# Arquivos específicos do sistema operacional
+*.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Arquivos de editor de texto
+*~
+
+# Arquivos de backup
+*.backup
+*.old
+*.orig
+
+# Arquivos de configuração sensíveis (NÃO faça commit destes arquivos)
+application-prod.properties
+application-prod.yml
+credentials.json
+secrets.yml
+
+# Arquivos de build do Gradle
+.gradle/
+build/
+
+# Arquivos do Spring Boot Devtools
+/META-INF/spring-devtools.properties
+/META-INF/maven/*SNAPSHOT*/maven-metadata.xml
+
+# Outros arquivos temporários ou específicos do ambiente
+hs_err_pid*
